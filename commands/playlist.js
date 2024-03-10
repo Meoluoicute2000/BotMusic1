@@ -76,8 +76,8 @@ module.exports = {
       ]
     },
     {
-      name: "list",
-      description: "Duyệt các bài hát trong Playlist.",
+      name: "song",
+      description: "Xem danh sách bài hát trong Playlist",
       type: ApplicationCommandOptionType.Subcommand,
       options: [
         {
@@ -90,7 +90,7 @@ module.exports = {
     },
     {
       name: "lists",
-      description: "Tất cả bài hát có trong Playlist.",
+      description: "Xem tất cả các Playlist.",
       type: ApplicationCommandOptionType.Subcommand,
       options: []
     },
