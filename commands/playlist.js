@@ -126,7 +126,7 @@ module.exports = {
         const creatingAlbumEmbed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Tạo Playlist')
-          .setDescription(`🍒Chúc mừng <@${interaction.member.id}> đã tạo 1 Playlist.`)
+          .setDescription(`🍒Chúc mừng <@${interaction.member.id}>, Playlist đã được tạo.`)
           .setFooter({ text: 'Made By Cherry' })
           .setTimestamp();
 
@@ -154,10 +154,10 @@ module.exports = {
   .setColor('#00ff00')
           .setAuthor({
             name: 'Playlist đã được tạo thành công.',
-            iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867547152060456/verify.png?ex=66422a50&is=6640d8d0&hm=3d5c25afa3e087db7810b6cb31fee94beba2b3accbf31f03a0cd4b6d68c34ef5&',
+            iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/Na6FFYMPW6'
           })
-  .setDescription(`🍒Chúc mừng <@${interaction.member.id}> đã tạo thành công 1 Playlist!`)
+  .setDescription(`🍒Chúc mừng <@${interaction.member.id}>, Playlist đã được tạo thành công!`)
   .setFooter({ text: 'Made By Cherry' })
   .setTimestamp();
 
@@ -190,7 +190,7 @@ await interaction.editReply({
        const deletingAlbumEmbed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Xóa Playlist')
-          .setDescription(`🍒Chịu rồi <@${interaction.member.id}> đã xóa 1 Playlist`)
+          .setDescription(`🍒Chịu rồi <@${interaction.member.id}>, Playlist của bạn đã bị xóa!`)
           .setFooter({ text: 'Made By Cherry' })
           .setTimestamp();
           
@@ -214,10 +214,10 @@ await interaction.editReply({
   .setColor('#00ff00')
           .setAuthor({
             name: 'Xóa Playlist thành công',
-            iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867547152060456/verify.png?ex=66422a50&is=6640d8d0&hm=3d5c25afa3e087db7810b6cb31fee94beba2b3accbf31f03a0cd4b6d68c34ef5&',
+            iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/Na6FFYMPW6'
           })
-  .setDescription(`🍒Chịu rồi <@${interaction.member.id}> đã xóa thành công 1 Playlist!`)
+  .setDescription(`🍒Chịu rồi <@${interaction.member.id}>, bạn đã xóa thành công Playlist!`)
   .setFooter({ text: 'Made By Cherry' })
   .setTimestamp();
 
@@ -255,10 +255,10 @@ await interaction.editReply({
         .setColor('#0099ff')
        .setAuthor({
           name: 'Bài hát đã thêm vào Playlist!',
-          iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867547152060456/verify.png?ex=66422a50&is=6640d8d0&hm=3d5c25afa3e087db7810b6cb31fee94beba2b3accbf31f03a0cd4b6d68c34ef5&',
+          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213430944007061574/6943_Verified.gif',
           url: 'https://discord.gg/Na6FFYMPW6'
         })
-        .setDescription(`🍒Chúc mừng <@${interaction.member.id}> đã thành công thêm 1 bài hát!`)
+        .setDescription(`🍒Chúc mừng <@${interaction.member.id}>, bạn đã thêm bài hát thành công!`)
         .setFooter({ text: 'Made By Cherry' })
         .setTimestamp();
         await interaction.reply({
@@ -301,7 +301,7 @@ await interaction.editReply({
          const deletingSongEmbed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Xóa bỏ bài hát.')
-          .setDescription(`🍒Ơ kìa <@${interaction.member.id}> đã xóa 1 bài hát`)
+          .setDescription(`🍒Ơ kìa <@${interaction.member.id}>, bài hát của bạn đã bị xóa!`)
           .setFooter({ text: 'Made By Cherry' })
           .setTimestamp();
 
@@ -325,7 +325,7 @@ await interaction.editReply({
   .setColor('#00ff00')
           .setAuthor({
             name: 'Xóa bài hát thành công!',
-            iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867547152060456/verify.png?ex=66422a50&is=6640d8d0&hm=3d5c25afa3e087db7810b6cb31fee94beba2b3accbf31f03a0cd4b6d68c34ef5&',
+            iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/Na6FFYMPW6'
           })
   .setDescription(`🍒Ơ kìa <@${interaction.member.id}>, bạn đã xóa nhạc thành công!`)
@@ -405,7 +405,7 @@ await interaction.editReply({
           return new EmbedBuilder()
            .setAuthor({
           name: 'Playlist nhạc!',
-          iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867000097505361/playlist.png?ex=664229cd&is=6640d84d&hm=1d5ace925c3aa1d656a1dd11d5208a09023f418efc8af6f7aaf01a51a7f16d0b&',
+          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
           url: 'https://discord.gg/Na6FFYMPW6'
         })
             .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
@@ -504,7 +504,7 @@ await interaction.editReply({
         const embed = new EmbedBuilder()
           .setAuthor({
             name: 'Playlist của tôi!',
-            iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867000097505361/playlist.png?ex=664229cd&is=6640d84d&hm=1d5ace925c3aa1d656a1dd11d5208a09023f418efc8af6f7aaf01a51a7f16d0b&',
+            iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
             url: 'https://discord.gg/Na6FFYMPW6'
           })
           .setColor(client.config.embedColor)
@@ -569,7 +569,7 @@ await interaction.editReply({
           return new EmbedBuilder()
             .setAuthor({
               name: 'Top những Playlist!',
-              iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867000097505361/playlist.png?ex=664229cd&is=6640d84d&hm=1d5ace925c3aa1d656a1dd11d5208a09023f418efc8af6f7aaf01a51a7f16d0b&',
+              iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
               url: 'https://discord.gg/Na6FFYMPW6'
             })
             .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
@@ -649,7 +649,7 @@ await interaction.editReply({
             const embed = new EmbedBuilder()
               .setAuthor({
           name: 'Top những Playlist!',
-          iconURL: 'https://cdn.discordapp.com/attachments/1238866275363721226/1238867000097505361/playlist.png?ex=664229cd&is=6640d84d&hm=1d5ace925c3aa1d656a1dd11d5208a09023f418efc8af6f7aaf01a51a7f16d0b&',
+          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
           url: 'https://discord.gg/Na6FFYMPW6'
         })
               .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
@@ -670,3 +670,4 @@ await interaction.editReply({
     }
   }
 }
+    
