@@ -340,7 +340,7 @@ await interaction.editReply({
 });
       }
 
-      if (stp === "song") {
+      if (stp === "list") {
         let name = interaction.options.getString('name')
         if (!name) return interaction.reply({ content: '🔍 Nhập tên Playlist để tìm!', ephemeral: true }).catch(e => { })
 
@@ -670,4 +670,3 @@ await interaction.editReply({
     }
   }
 }
-    
