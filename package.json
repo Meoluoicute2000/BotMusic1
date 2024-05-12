@@ -1,7 +1,7 @@
 {
-  "name": "bot",
-  "version": "2.2.2.2",
-  "description": "music bot for slash commands",
+  "name": "BotMusic1",
+  "version": "1.1.1.1",
+  "description": "Bot nhạc với Slash Commands",
   "main": "index.js",
   "dependencies": {
     "@discordjs/builders": "^1.6.5",
