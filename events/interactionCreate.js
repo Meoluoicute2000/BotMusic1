@@ -5,12 +5,9 @@ const fs = require("fs");
 
 module.exports = async (client, interaction) => {
     try {
-        // Kiểm tra xem interaction có thuộc một server không
         if (!interaction?.guild) {
-            // Nếu không, phản hồi rằng lệnh bị giới hạn
             return interaction?.reply({ content: "Tỉ lệ giới hạn.", ephemeral: true });
         } else {
-            // Hàm để tải lệnh và thực thi nó
             function cmdLoader() {
                 if (interaction?.type === InteractionType.ApplicationCommand) {
                     fs.readdir(config.commandsDir, (err, files) => {
@@ -19,7 +16,6 @@ module.exports = async (client, interaction) => {
                             let props = require(`.${config.commandsDir}/${f}`);
                             if (interaction.commandName === props.name) {
                                 try {
-                                    // Kiểm tra nếu trong dữ liệu có giới hạn kênh
                                     let data = await db?.musicbot?.findOne({ guildID: interaction?.guild?.id });
 
                                     if (data?.channels?.length > 0) {
@@ -46,7 +42,6 @@ module.exports = async (client, interaction) => {
                                         }
                                     }
 
-                                    // Kiểm tra quyền của thành viên để thực hiện lệnh
                                     if (interaction?.member?.permissions?.has(props?.permissions || "0x0000000000000800")) {
                                         const DJ = client.config.opt.DJ;
 
@@ -59,7 +54,6 @@ module.exports = async (client, interaction) => {
                                                 if (!interaction?.member?.permissions?.has("0x0000000000000020")) {
                                                     if (roleDJ) {
                                                         if (!interaction?.member?.roles?.cache?.has(roleDJ?.id)) {
-                                                            // Phản hồi nếu thành viên không có vai trò DJ
                                                             const embed = new EmbedBuilder()
                                                                 .setColor(client.config.embedColor)
                                                                 .setTitle(client?.user?.username)
@@ -76,7 +70,6 @@ module.exports = async (client, interaction) => {
 
                                         if (props && props.voiceChannel) {
                                             if (!interaction?.member?.voice?.channelId) {
-                                                // Phản hồi nếu thành viên không ở trong kênh voice
                                                 return interaction?.reply({ content: `🔴 Vào một kênh Voice trước!!`, ephemeral: true }).catch(e => { });
                                             }
 
@@ -84,7 +77,6 @@ module.exports = async (client, interaction) => {
 
                                             if (guildMe?.voice?.channelId) {
                                                 if (guildMe?.voice?.channelId !== interaction?.member?.voice?.channelId) {
-                                                    // Phản hồi nếu Bot và thành viên không ở cùng một kênh voice
                                                     return interaction?.reply({ content: `🔴 Phải ở cùng một kênh Voice!`, ephemeral: true }).catch(e => { });
                                                 }
                                             }
@@ -92,11 +84,9 @@ module.exports = async (client, interaction) => {
 
                                         return props.run(client, interaction);
                                     } else {
-                                        // Phản hồi nếu thiếu quyền cần thiết
                                         return interaction?.reply({ content: `▶️ Thiếu quyền: **${props?.permissions?.replace("0x0000000000000020", "MANAGE GUILD")?.replace("0x0000000000000800", "SEND MESSAGES") || "SEND MESSAGES"}**`, ephemeral: true });
                                     }
                                 } catch (e) {
-                                    // Phản hồi nếu có lỗi xảy ra
                                     return interaction?.reply({ content: `❌ Lỗi...\n\n\`\`\`${e?.message}\`\`\``, ephemeral: true });
                                 }
                             }
@@ -105,7 +95,6 @@ module.exports = async (client, interaction) => {
                 }
             }
 
-            // Kiểm tra nếu tính năng bình chọn được bật và có khóa API được cung cấp
             if (config.voteManager.status === true && config.voteManager.api_key) {
                 if (config.voteManager.vote_commands.includes(interaction?.commandName)) {
                     try {
@@ -114,32 +103,26 @@ module.exports = async (client, interaction) => {
 
                         await topApi?.hasVoted(interaction?.user?.id).then(async voted => {
                             if (!voted) {
-                                // Phản hồi nếu người dùng chưa bình chọn
                                 const embed2 = new EmbedBuilder()
                                     .setTitle("Vote " + client?.user?.username)
                                     .setColor(client?.config?.embedColor);
 
                                 return interaction?.reply({ content: "", embeds: [embed2], ephemeral: true });
                             } else {
-                                // Nếu đã bình chọn, thực thi lệnh
                                 cmdLoader();
                             }
                         });
                     } catch (e) {
-                        // Nếu xảy ra lỗi trong quá trình kiểm tra bình chọn, vẫn thực thi lệnh
                         cmdLoader();
                     }
                 } else {
-                    // Nếu lệnh không yêu cầu bình chọn, thực thi lệnh
                     cmdLoader();
                 }
             } else {
-                // Nếu tính năng bình chọn không được bật, thực thi lệnh
                 cmdLoader();
             }
         }
     } catch (e) {
-        // Xử lý lỗi nếu có
-        console.error(error);
+        console.error(e);
     }
 };

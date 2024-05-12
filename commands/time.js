@@ -8,94 +8,65 @@ module.exports = {
   options: [],
   run: async (client, interaction) => {
     try {
-      // Lấy hàng đợi phát nhạc của máy chủ từ client
       const queue = client.player.getQueue(interaction.guild.id);
 
-      // Kiểm tra nếu không có hàng đợi hoặc không có bài hát nào đang phát hoặc hàng đợi trống
       if (!queue || !queue.playing || !queue.songs.length) {
         return interaction.reply({ content: '⚠️ Không có bài hát nào đang phát !!', ephemeral: true }).catch(console.error);
       }
 
-      // Lấy thông tin của bài hát đang phát
-      const currentSong = queue.songs[0];
-
-      // Độ dài của thanh tiến trình
       const progressBarLength = 15;
 
-      // Gửi tin nhắn và lưu lại để cập nhật
-      let message = await interaction.reply({ content: 'Đang tải thời gian thực của bài hát...', ephemeral: false });
+      const message = await interaction.reply({ content: 'Đang tải thời gian thực của bài hát...', ephemeral: false });
 
-      // Cập nhật thanh tiến trình
       const updateInterval = 1000;
       const progressBarUpdate = setInterval(async () => {
-        // Kiểm tra nếu không có bài hát nào trong hàng đợi
-        if (!currentSong) {
-          clearInterval(progressBarUpdate);
-          return message.edit({ content: '⚠️ Không có bài hát nào đang phát !!', embeds: [] }).catch(console.error);
-        }
-
-        // Tính toán phần trăm tiến trình của bài hát
-        const music_percent = currentSong.duration / 100;
-        const music_percent2 = queue.currentTime / music_percent;
-        const music_percent3 = Math.round(music_percent2);
-
-        // Kiểm tra nếu đã phát hết bài hát
-        if (queue.currentTime > currentSong.duration) {
+        if (!queue.duration || isNaN(queue.duration) || !queue.currentTime || isNaN(queue.currentTime)) {
           clearInterval(progressBarUpdate);
           return;
         }
 
-        // Tạo thanh tiến trình
-        const progressBar = createProgressBar(music_percent3, progressBarLength);
+        const music_percent = queue.duration / 100;
+        const music_percent2 = queue.currentTime / music_percent;
+        const music_percent3 = Math.round(music_percent2);
 
-        // Tạo Embed mới để hiển thị thông tin thời gian phát
-        const embed = new EmbedBuilder()
-          .setColor(client.config.embedColor)
-          .setTitle(currentSong.name)
-          .setThumbnail(currentSong.thumbnail || 'URL_MẶC_ĐỊNH')
-          .setDescription(`**${queue.playing ? '🎵' : '⏸️'} 「${formatTime(queue.currentTime)} | ${formatTime(currentSong.duration)}」**\n${progressBar}`)
-          .setFooter({ text: 'Made By Cherry' })
-          .setTimestamp();
-
-        // Nếu có tin nhắn trước đó, cập nhật nó với Embed mới
-        if (message) {
-          message = await message.edit({ embeds: [embed] }).catch(console.error);
+        if (queue.currentTime > queue.duration) {
+          await message.delete().catch(console.error);
+          clearInterval(progressBarUpdate);
         }
 
+        const progressBar = createProgressBar(music_percent3, progressBarLength);
+
+        const embed = new EmbedBuilder()
+          .setColor(client.config.embedColor)
+          .setTitle(queue.playing ? queue.songs[0].name : 'Không có bài hát đang phát')
+          .setThumbnail(queue.songs[0].thumbnail)
+          .setFooter({ text: 'Made By Cherry' })
+          .setDescription(`**「${queue.formattedCurrentTime} | 🍒 | ${queue.formattedDuration}」**\n${progressBar}`)
+          .setTimestamp();
+
+          await message.edit({ embeds: [embed] }).catch(error => {
+          });
       }, updateInterval);
 
-    } catch (error) {
-      // Xử lý lỗi nếu có và ghi log
-      console.error('Có lỗi xảy ra khi thực hiện lệnh Time:', error);
-      // Phản hồi cho người dùng với thông báo lỗi
-      interaction.reply({ content: '⚠️ Đã có lỗi xảy ra khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
+      if (!queue.playing) {
+        await message.delete().catch(console.error);
+        clearInterval(progressBarUpdate);
+      }
+    } catch (e) {
+      console.error(e);
     }
   },
 };
 
-// Hàm tạo thanh tiến trình
 function createProgressBar(percent, length) {
   if (!percent || isNaN(percent)) {
     percent = 0;
   }
 
   const progressChars = '▬';
-  const emptyChars = '·';
+  const emptyChars = '─';
   const progressLength = Math.round((percent / 100) * length);
 
   const progressBar = progressChars.repeat(progressLength) + emptyChars.repeat(length - progressLength);
   return `[${progressBar}] ${percent}%`;
-}
-
-// Hàm định dạng thời gian
-function formatTime(time) {
-  const hours = Math.floor(time / 3600);
-  const minutes = Math.floor((time % 3600) / 60);
-  const seconds = Math.floor(time % 60);
-
-  const formattedHours = hours.toString().padStart(2, '0');
-  const formattedMinutes = minutes.toString().padStart(2, '0');
-  const formattedSeconds = seconds.toString().padStart(2, '0');
-
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }

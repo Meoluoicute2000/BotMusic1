@@ -9,7 +9,6 @@ const config = require("./config.js");
 const fs = require("fs");
 const path = require('path');
 
-// Khởi tạo Discord client với các cấu hình cần thiết
 const client = new Client({
   partials: [
     Partials.Channel, 
@@ -24,10 +23,7 @@ const client = new Client({
   ],
 });
 
-// Lưu cấu hình vào client để dễ truy cập
 client.config = config;
-
-// Khởi tạo DisTube client để phát nhạc
 client.player = new DisTube(client, {
   leaveOnStop: config.opt.voiceConfig.leaveOnStop,
   leaveOnFinish: config.opt.voiceConfig.leaveOnFinish,
@@ -43,11 +39,9 @@ client.player = new DisTube(client, {
   ],
 });
 
-// Tắt cập nhật YTDl để tránh việc gây lỗi
 process.env.YTDL_NO_UPDATE = true;
 const player = client.player;
 
-// Tải và kích hoạt các sự kiện từ thư mục "events"
 fs.readdir("./events", (_err, files) => {
   files.forEach((file) => {
     if (!file.endsWith(".js")) return;
@@ -58,7 +52,6 @@ fs.readdir("./events", (_err, files) => {
   });
 });
 
-// Tải và kích hoạt các sự kiện từ thư mục "events/player"
 fs.readdir("./events/player", (_err, files) => {
   files.forEach((file) => {
     if (!file.endsWith(".js")) return;
@@ -69,7 +62,6 @@ fs.readdir("./events/player", (_err, files) => {
   });
 });
 
-// Tải danh sách các lệnh từ thư mục được chỉ định trong cấu hình
 client.commands = [];
 fs.readdir(config.commandsDir, (err, files) => {
   if (err) throw err;
@@ -89,7 +81,7 @@ fs.readdir(config.commandsDir, (err, files) => {
   });
 });
 
-// Đăng nhập vào Discord bằng token từ cấu hình hoặc biến môi trường
+
 if (config.TOKEN || process.env.TOKEN) {
   client.login(config.TOKEN || process.env.TOKEN).catch((e) => {
     console.log('TOKEN đã bị lỗi❌');
@@ -100,7 +92,7 @@ if (config.TOKEN || process.env.TOKEN) {
   }, 2000);
 }
 
-// Kết nối đến MongoDB
+
 if(config.mongodbURL || process.env.MONGO){
   const mongoose = require("mongoose")
   mongoose.set('strictQuery', false);
@@ -113,16 +105,14 @@ if(config.mongodbURL || process.env.MONGO){
     console.log('\x1b[32m%s\x1b[0m', `|    🍔 Không thể kết nối MongoDB!`)})
   } else {
   console.log('\x1b[32m%s\x1b[0m', `|    🍔 Lỗi MongoDB!`)
-}
-
-// Khởi tạo server Express
+  }
+  
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = 3000;
 app.get('/', (req, res) => {
   const imagePath = path.join(__dirname, 'index.html');
   res.sendFile(imagePath);
 });
 app.listen(port, () => console.log('\x1b[36m%s\x1b[0m', `|    🍒 Cherry đang mở cổng : ${port}`));
-
 printWatermark();
