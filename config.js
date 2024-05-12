@@ -1,6 +1,6 @@
 module.exports = {
   // Token của bot
-  TOKEN: "MTE3NjEwMTYzNjIxMzU3MTYyNA.GJyQji.MW9txb8jfmbx59zKPfRsZ3RxwadvcgTN3Lcjp8",
+  TOKEN: "",
 
   // ID của chủ bot
   ownerID: ["827533541113069609", "701647458349875312"],
