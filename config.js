@@ -1,21 +1,41 @@
 module.exports = {
-  TOKEN: "",
+  // Token của bot
+  TOKEN: "MTE3NjEwMTYzNjIxMzU3MTYyNA.GJyQji.MW9txb8jfmbx59zKPfRsZ3RxwadvcgTN3Lcjp8",
+
+  // ID của chủ bot
   ownerID: ["827533541113069609", "701647458349875312"],
+
+  // Liên kết mời bot vào máy chủ
   botInvite: "",
-  supportServer: "https://discord.gg/Na6FFYMPW6",
-  mongodbURL: "mongodb+srv://KidtomboyReal:Kidtomboy1412@cherry.ulfcfwi.mongodb.net/?retryWrites=true&w=majority",
+
+  // Liên kết máy chủ hỗ trợ
+  supportServer: "",
+
+  // URL của MongoDB
+  mongodbURL: "mongodb+srv://Che12345:Kidtomboy@che1234.qphfxge.mongodb.net/?retryWrites=true&w=majority",
+
+  // Trạng thái của bot
   status: 'Cherry',
+
+  // Thư mục chứa các lệnh của bot
   commandsDir: './commands',
-  language: "vi",
+
+  // Ngôn ngữ mặc định của bot
+  language: "en",
+
+  // Màu sắc mặc định của Embed
   embedColor: "0055ff",
+
+  // Đường dẫn lưu log lỗi
   errorLog: "",
 
-
+  // Cài đặt tài trợ
   sponsor: {
     status: true,
     url: "https://www.youtube.com/@Kidtomboy",
   },
 
+  // Quản lý vote
   voteManager: {
     status: false,
     api_key: "",
@@ -23,20 +43,25 @@ module.exports = {
     vote_url: "",
   },
 
+  // Quản lý Shard
   shardManager: {
     shardStatus: false
   },
 
+  // Cài đặt Playlist
   playlistSettings: {
     maxPlaylist: 20,
     maxMusic: 100,
   },
 
+  // Tùy chọn
   opt: {
+    // Tùy chọn DJ
     DJ: {
       commands: ['back', 'clear', 'filter', 'loop', 'pause', 'resume', 'skip', 'stop', 'volume', 'shuffle']
     },
 
+    // Cấu hình voice
     voiceConfig: {
       leaveOnFinish: false,
       leaveOnStop: false,
@@ -44,10 +69,9 @@ module.exports = {
         status: false,
         cooldown: 0,
       },
-
     },
-    
-    maxVol: 150,
 
+    // Giới hạn âm lượng tối đa
+    maxVol: 150,
   }
 }
