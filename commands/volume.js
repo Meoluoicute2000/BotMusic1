@@ -70,7 +70,7 @@ module.exports = {
       }
     } catch (e) {
       // Xử lý lỗi nếu có và ghi log
-      console.error('Có lỗi xảy ra khi thực hiện lệnh Volume:', e);
+      console.error('Có lỗi xảy ra khi thực hiện lệnh Volume:', error);
       // Phản hồi cho người dùng với thông báo lỗi
       interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
     }

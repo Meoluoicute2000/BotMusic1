@@ -1,8 +1,8 @@
-const { ApplicationCommandOptionType, MessageEmbed, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { opt } = require("../config.js");
+const { ApplicationCommandOptionType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const db = require("../mongoDB");
+const { opt } = require("../config.js")
 
-// Biến để lưu URL của ảnh thumbnail được chọn
+// Lấy thumbailUrl ảnh
 let selectedThumbnailURL;
 module.exports.selectedThumbnailURL = selectedThumbnailURL;
 
@@ -19,21 +19,21 @@ module.exports = {
   voiceChannel: true,
   run: async (client, interaction) => {
     try {
-      // Lấy tên của bài hát từ lựa chọn
+      // Lấy tên bài hát từ lựa chọn
       const name = interaction.options.getString('name');
-      // Kiểm tra xem có tên bài hát không
+      // Kiểm tra tên bài hát xem có hợp lệ hay không
       if (!name) return interaction.reply({ content: `❌ Nhập tên bài hát hợp lệ.`, ephemeral: true }).catch(e => { });
 
       let res;
       try {
-        // Tìm kiếm bài hát dựa trên tên
+        // Khởi động tìm kiếm dựa vào tên
         res = await client.player.search(name, {
           member: interaction.member,
           textChannel: interaction.channel,
           interaction
         });
       } catch (e) {
-        // Xử lý lỗi nếu tìm kiếm không thành công
+        // Trả về nếu không có kết quả
         return interaction.editReply({ content: `❌ Không có kết quả` }).catch(e => { });
       }
 
@@ -41,10 +41,10 @@ module.exports = {
       if (!res || !res.length || !res.length > 1) return interaction.reply({ content: `❌ Không có kết quả`, ephemeral: true }).catch(e => { });
 
       // Tạo Embed để hiển thị kết quả tìm kiếm
-      const embed = new MessageEmbed();
+      const embed = new EmbedBuilder();
       embed.setColor(client.config.embedColor);
       embed.setFooter({ text: 'Made By Cherry' });
-      embed.setTitle(`🔍 [ Thanh Tìm Kiếm: **${name}** ]`);
+      embed.setTitle(`Đã tìm thấy các bài hát liên quan: [Thanh Tìm Kiểm: *${name}*]`);
       embed.setTimestamp();
 
       // Lấy danh sách các bài hát tìm được (tối đa 10 bài hát)
@@ -58,7 +58,7 @@ module.exports = {
           .setCustomId(`${index + 1}`);
       });
 
-      // Phân chia nút chọn thành các hàng hợp lý
+      // Phân chia nút chọn thành các hàng
       let buttons1;
       let buttons2;
       if (track_button_creator.length > 10) {
@@ -71,8 +71,8 @@ module.exports = {
         } else {
           buttons1 = new ActionRowBuilder().addComponents(track_button_creator);
         }
-      }
-
+      } 
+      
       // Tạo nút hủy
       let cancel = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
@@ -86,7 +86,7 @@ module.exports = {
       embed.setFooter({ text: 'Made By Cherry' });
       embed.setTimestamp();
 
-      // Tạo mã để gửi Embed và các nút
+      // Tạo mã để gửi Embed và các nút 
       let code;
       if (buttons1 && buttons2) {
         code = { embeds: [embed], components: [buttons1, buttons2, cancel] };
@@ -112,7 +112,7 @@ module.exports = {
               // Người dùng chọn một bài hát để phát
               selectedThumbnailURL = maxTracks[Number(button.customId) - 1].thumbnail;
               embed.setThumbnail(selectedThumbnailURL);
-              embed.setDescription(`## *Đang phát bài hát:* [${res[Number(button.customId) - 1].name}](${res[Number(button.customId) - 1].url})`);
+              embed.setDescription(`**${res[Number(button.customId) - 1].name}**`);
               await interaction.editReply({ embeds: [embed], components: [] }).catch(e => { });
               try {
                 // Phát bài hát được chọn
@@ -129,9 +129,8 @@ module.exports = {
             }
           }
         });
-
+        // Sửa tin nhắn ember cho ngắn gọn
         collector.on('end', (msg, reason) => {
-          // Xử lý khi thu thập dừng lại sau 30 giây
           if (reason === 'time') {
             embed.setDescription("**😺 Phát hiện chưa lựa chọn nhạc sau 30 giây.**\n **🍒 Tự động sửa tin nhắn để ember ngắn gọn!**");
             embed.setFooter({ text: 'Made By Cherry' });
@@ -142,7 +141,7 @@ module.exports = {
       }).catch(e => { });
     } catch (e) {
       // Xử lý lỗi nếu có và ghi log
-      console.error('Có lỗi xảy ra khi thực hiện lệnh Play', error);
+      console.error('Có lỗi xảy ra khi thực hiện lệnh Play:', error);
       // Phản hồi cho người dùng với thông báo lỗi
       interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
     }

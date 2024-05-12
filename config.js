@@ -12,7 +12,7 @@ module.exports = {
   supportServer: "",
 
   // URL của MongoDB
-  mongodbURL: "mongodb+srv://KidtomboyReal:Kidtomboy1412@cherry.ulfcfwi.mongodb.net/?retryWrites=true&w=majority",
+  mongodbURL: "mongodb+srv://Che12345:Kidtomboy@che1234.qphfxge.mongodb.net/?retryWrites=true&w=majority",
 
   // Trạng thái của bot
   status: 'Cherry',
