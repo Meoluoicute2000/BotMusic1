@@ -151,9 +151,7 @@ module.exports = {
           embeds: [creatingAlbumEmbed]
         }).catch(e => {
           // Xử lý lỗi nếu có và ghi log
-          console.error('Có lỗi xảy ra khi thực hiện các lênh Playlist', error);
-          // Phản hồi cho người dùng với thông báo lỗi
-          interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
+          console.error('Có lỗi xảy ra khi thực hiện các lệnh Playlist', error);
         });
 
         // Cập nhật thông tin trong database để lưu trữ playlist của người dùng
@@ -189,8 +187,6 @@ await interaction.editReply({
 }).catch(e => {
   // Xử lý lỗi nếu có và ghi log
   console.error('Lỗi khi chỉnh sửa lại tin nhắn của Playlist', error);
-  // Phản hồi cho người dùng với thông báo lỗi
-  interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
 });
       }
       // Xử lý khi subcommand là "delete"
@@ -231,8 +227,6 @@ await interaction.editReply({
         }).catch(e => {
           // Xử lý lỗi nếu có và ghi log
           console.error('Lỗi gửi tin nhắn của lệnh Playlist', error);
-          // Phản hồi cho người dùng với thông báo lỗi
-          interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
         });
 
         // Xóa playlist từ database
@@ -263,8 +257,6 @@ await interaction.editReply({
 }).catch(e => {
   // Xử lý lỗi nếu có và ghi log
   console.error('Lỗi chỉnh sửa tin nhắn của lệnh Playlist', error);
-  // Phản hồi cho người dùng với thông báo lỗi
-  interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
 });
       }
       // Xử lý khi subcommand là "add-music"
@@ -313,8 +305,6 @@ await interaction.editReply({
 }).catch(e => {
   // Xử lý lỗi nếu có và ghi log
   console.error('Lỗi khi gửi tin nhắn của lệnh Playlist', error);
-  // Phản hồi cho người dùng với thông báo lỗi
-  interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
 });
       //Kiểm tra bài hát đã có trong Playlist chưa
         const music_filter = playlist?.musics?.filter(m => m.playlist_name === playlist_name && m.music_name === res[0]?.name)
@@ -365,8 +355,6 @@ await interaction.editReply({
         }).catch(e => {
           // Xử lý lỗi nếu có và ghi log
           console.error('Lỗi gửi tin nhắn của lệnh Playlist', error);
-          // Phản hồi cho người dùng với thông báo lỗi
-          interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
         });
 
         // Tìm playlist trong database để xóa bài hát cần gỡ
@@ -398,8 +386,6 @@ await interaction.editReply({
 }).catch(e => {
   // Xử lý lỗi nếu có và ghi log
   console.error('Lỗi chỉnh sửa tin nhắn của lênh Playlist ', error);
-  // Phản hồi cho người dùng với thông báo lỗi
-  interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
 });
       }
       // Xử lý khi subcommand là "song"
@@ -741,8 +727,7 @@ await interaction.editReply({
       }
     } catch (e) {
       console.error(e);
-      interaction.reply({ content: 'Đã xảy ra lỗi khi thực hiện các lệnh Playlist', error, ephemeral: true }).catch(e => { })
+      interaction.reply({ content: 'Đã xảy ra lỗi khi thực hiện các lệnh Playlist', ephemeral: true }).catch(e => { })
     }
   }
 }
-    
