@@ -1,5 +1,5 @@
-const version = "3.3.3.3 : 2";
-const botName = "🤖 Bot MUSIC - 2";
+const version = "3.3.3.3 : 1";
+const botName = "🤖 Bot MUSIC - 1";
 
 function printWatermark() {
   console.log('\x1b[1m\x1b[36m╔════════════════════════════════════════════╗');
