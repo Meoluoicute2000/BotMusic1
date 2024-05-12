@@ -44,7 +44,7 @@ module.exports = {
       const embed = new EmbedBuilder();
       embed.setColor(client.config.embedColor);
       embed.setFooter({ text: 'Made By Cherry' });
-      embed.setTitle(`Đã tìm thấy các bài hát liên quan: [Thanh Tìm Kiểm: *${name}*]`);
+      embed.setTitle(`🔍 [| **Thanh Tìm Kiểm:** *${name}* |]`);
       embed.setTimestamp();
 
       // Lấy danh sách các bài hát tìm được (tối đa 10 bài hát)
@@ -112,7 +112,7 @@ module.exports = {
               // Người dùng chọn một bài hát để phát
               selectedThumbnailURL = maxTracks[Number(button.customId) - 1].thumbnail;
               embed.setThumbnail(selectedThumbnailURL);
-              embed.setDescription(`**${res[Number(button.customId) - 1].name}**`);
+              embed.setDescription(`## *Đang phát bài hát:* [${res[Number(button.customId) - 1].name}](${res[Number(button.customId) - 1].url})`);
               await interaction.editReply({ embeds: [embed], components: [] }).catch(e => { });
               try {
                 // Phát bài hát được chọn
