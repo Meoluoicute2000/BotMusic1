@@ -8,9 +8,9 @@ module.exports = {
   run: async (client, interaction) => {
 
     try {
-      // Tạo một Embed để hiển thị tin nhắn đang kiểm tra độ trễ
+
       const start = Date.now();
-      interaction.reply("Đang tải độ trễ của bot...").then(msg => {
+      interaction.reply("Độ trễ🍒💦").then(msg => {
         const end = Date.now();
         const embed = new EmbedBuilder()
           .setColor(`#6190ff`)
@@ -22,10 +22,7 @@ module.exports = {
       }).catch(err => { })
 
     } catch (e) {
-      // Xử lý lỗi nếu có và ghi log
-      console.error('Có lỗi xảy ra khi thực hiện lệnh Ping:', error);
-      // Phản hồi cho người dùng với thông báo lỗi
-      interaction.reply({ content: '⚠️ Đã xảy ra lỗi khi thực hiện lệnh này!', ephemeral: true }).catch(console.error);
+    console.error(e); 
   }
   },
 };
