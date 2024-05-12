@@ -1,6 +1,6 @@
 const { ApplicationCommandOptionType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const db = require("../mongoDB");
-const { opt } = require("../config.js")
+const { opt } = require("../config.js");
 
 // Lấy thumbailUrl ảnh
 let selectedThumbnailURL;
